@@ -1,0 +1,15 @@
+[mod]
+id = "simple_fog_control"
+version = "0.1.0"
+priority = 100
+
+# Commit do horizon-rust/horizon que ja contem native_render_fog (merge do PR #6003).
+[compatibility]
+horizon_revision = "653af80c4a544fc0a9916daad0c366e40087766f"
+
+[[injection]]
+id = "fog"
+target = "horizon_client::game::native_hooks::Game<'_>::native_render_fog"
+kind = "HEAD"
+helper = "fog.rs"
+bindings = [{ name = "data", ty = "&mut horizon_client::fog::FogData", value = "&mut *fog" }]
