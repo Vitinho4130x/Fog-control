@@ -1,0 +1,16 @@
+[mod]
+id = "simple_fog_control"
+version = "0.1.0"
+priority = 100
+
+# Revisao que o horizon-mixins le no codigo do Horizon do commit 653af80
+# (merge do PR #6003, que adicionou native_render_fog).
+[compatibility]
+horizon_revision = "0afea2329b5831290af093684088ca4cc3ba04d8"
+
+[[injection]]
+id = "fog"
+target = "horizon_client::game::native_hooks::Game<'_>::native_render_fog"
+kind = "HEAD"
+helper = "fog.rs"
+bindings = [{ name = "data", ty = "&mut horizon_client::fog::FogData", value = "&mut *fog" }]
